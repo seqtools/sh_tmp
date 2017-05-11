@@ -40,12 +40,13 @@ function checkmulfiles {
 function downloadIGenomes {
 (echo Step 4 Downloading iGenomes; date) | sed 'N;s/\n/ /'
 LINK="ftp://igenome:G3nom3s4u@ussd-ftp.illumina.com/Homo_sapiens/${1}/${2}/Homo_sapiens_${1}_${2}.tar.gz"
-wget --load-cookie /tmp/cookie.txt --save-cookie /tmp/cookie.txt $LINK -O Homo_sapiens_${1}_${2}.tar.gz
+curl -L --cookie /tmp/cookie.txt --cookie-jar /tmp/cookie.txt $LINK -o Homo_sapiens_${1}_${2}.tar.gz
 checkfile Homo_sapiens_${1}_${2}.tar.gz
 
 dir="Homo_sapiens/${1}/${2}/Sequence/WholeGenomeFasta"
 if [ ! -d $dir ]; then mkdir -p $dir; fi;
-cp -RLp ~/.avfs"$PWD/Homo_sapiens_${1}_${2}.tar.gz#"/$dir/{genome.fa,genome.fa.fai,genome.dict,GenomeSize.xml} $PWD/$dir
+tar -xvf $PWD/Homo_sapiens_${1}_${2}.tar.gz $dir/genome.fa $dir/genome.fa.fai $dir/genome.dict $dir/GenomeSize.xml
+#cp -RLp ~/.avfs"$PWD/Homo_sapiens_${1}_${2}.tar.gz#"/$dir/{genome.fa,genome.fa.fai,genome.dict,GenomeSize.xml} $PWD/$dir
 checkfile $PWD/$dir/genome.fa
 checkfile $PWD/$dir/genome.fa.fai
 checkfile $PWD/$dir/genome.dict
@@ -69,14 +70,20 @@ if [ ${2} == "hg38" ]; then
 fi
 dirGene="Homo_sapiens/${1}/${2}/Annotation/Genes"
 if [ ! -d $dirGene ]; then mkdir -p $dirGene; fi;
-cp -RLp ~/.avfs"$PWD/Homo_sapiens_${1}_${2}.tar.gz#"/$dir/genes.gtf $PWD/$dirGene
+tar -xvf $PWD/Homo_sapiens_${1}_${2}.tar.gz $dir/genes.gtf
+mv $PWD/$dir/genes.gtf $PWD/$dirGene/
+rm -r -f $PWD/Homo_sapiens/${1}/${2}/Annotation/Archives
+#cp -RLp ~/.avfs"$PWD/Homo_sapiens_${1}_${2}.tar.gz#"/$dir/genes.gtf $PWD/$dirGene
 checkfile $PWD/$dirGene/genes.gtf
 echo "genes.gtf has been downloaded successfully."
 
 dir="Homo_sapiens/${1}/${2}/Sequence/BWAIndex/version0.6.0"
 dirBWA="Homo_sapiens/${1}/${2}/Sequence/BWAIndex"
 if [ ! -d $dirBWA ]; then mkdir -p $dirBWA; fi;
-cp -RLp ~/.avfs"$PWD/Homo_sapiens_${1}_${2}.tar.gz#"/$dir/{genome.fa.bwt,genome.fa.ann,genome.fa.amb,genome.fa.pac,genome.fa.sa} $PWD/$dirBWA
+tar -xvf $PWD/Homo_sapiens_${1}_${2}.tar.gz $dir/genome.fa.bwt $dir/genome.fa.ann $dir/genome.fa.amb $dir/genome.fa.pac $dir/genome.fa.sa
+mv $dir/* $dir/..
+rm -r -f $dir
+#cp -RLp ~/.avfs"$PWD/Homo_sapiens_${1}_${2}.tar.gz#"/$dir/{genome.fa.bwt,genome.fa.ann,genome.fa.amb,genome.fa.pac,genome.fa.sa} $PWD/$dirBWA
 checkfile $PWD/$dirBWA/genome.fa.bwt
 checkfile $PWD/$dirBWA/genome.fa.ann
 checkfile $PWD/$dirBWA/genome.fa.amb
@@ -86,7 +93,8 @@ echo "BWA pre-built index files have been downloaded successfully."
 
 dir="Homo_sapiens/${1}/${2}/Sequence/Bowtie2Index"
 if [ ! -d $dir ]; then mkdir -p $dir; fi;
-cp -RLp ~/.avfs"$PWD/Homo_sapiens_${1}_${2}.tar.gz#"/$dir/*.bt2 $PWD/$dir
+tar -xvf $PWD/Homo_sapiens_${1}_${2}.tar.gz $dir/*.bt2
+#cp -RLp ~/.avfs"$PWD/Homo_sapiens_${1}_${2}.tar.gz#"/$dir/*.bt2 $PWD/$dir
 checkmulfiles $PWD/$dir *.bt2
 echo "Bowtie2 pre-built index files have been downloaded successfully."
 
@@ -97,7 +105,7 @@ echo $1
 echo $2
 echo $PWD
 
-mountavfs
+#mountavfs
 
 cd $2
 
@@ -111,9 +119,9 @@ case $1 in
 		mkdir -p ./Ensembl_GRCh37
 		cd ./Ensembl_GRCh37
 		(echo Step 2 Downloading dbSNP_tbi; date) | sed 'N;s/\n/ /'
-		(wget -c -O common_all_20160601.vcf.gz.tbi ftp://ftp.ncbi.nih.gov/snp/organisms/human_9606_b147_GRCh37p13/VCF/common_all_20160601.vcf.gz.tbi)
+		(curl -L -o common_all_20160601.vcf.gz.tbi -C - ftp://ftp.ncbi.nih.gov/snp/organisms/human_9606_b147_GRCh37p13/VCF/common_all_20160601.vcf.gz.tbi)
 		(echo Step 3 Downloading dbSNP_vcf; date) | sed 'N;s/\n/ /'
-		(wget -c -O common_all_20160601.vcf.gz ftp://ftp.ncbi.nih.gov/snp/organisms/human_9606_b147_GRCh37p13/VCF/common_all_20160601.vcf.gz)
+		(curl -L -o common_all_20160601.vcf.gz -C - ftp://ftp.ncbi.nih.gov/snp/organisms/human_9606_b147_GRCh37p13/VCF/common_all_20160601.vcf.gz)
 		(checkfile common_all_20160601.vcf.gz) 
 		(checkfile common_all_20160601.vcf.gz.tbi) 
 		cd ../..
@@ -126,9 +134,9 @@ case $1 in
 		mkdir -p ./NCBI_GRCh38
 		cd ./NCBI_GRCh38
 		(echo Step 2 Downloading dbSNP_tbi; date) | sed 'N;s/\n/ /'
-		(wget -c -O common_all_20160527.vcf.gz.tbi ftp://ftp.ncbi.nih.gov/snp/organisms/human_9606_b147_GRCh38p2/VCF/GATK/common_all_20160527.vcf.gz.tbi)
+		(curl -L -o common_all_20160527.vcf.gz.tbi -C - ftp://ftp.ncbi.nih.gov/snp/organisms/human_9606_b147_GRCh38p2/VCF/GATK/common_all_20160527.vcf.gz.tbi)
 		(echo Step 3 Downloading dbSNP_vcf; date) | sed 'N;s/\n/ /'
-		(wget -c -O common_all_20160527.vcf.gz ftp://ftp.ncbi.nih.gov/snp/organisms/human_9606_b147_GRCh38p2/VCF/GATK/common_all_20160527.vcf.gz)
+		(curl -L -o common_all_20160527.vcf.gz -C - ftp://ftp.ncbi.nih.gov/snp/organisms/human_9606_b147_GRCh38p2/VCF/GATK/common_all_20160527.vcf.gz)
 		(checkfile common_all_20160527.vcf.gz) 
 		(checkfile common_all_20160527.vcf.gz.tbi) 
 		cd ../..
@@ -141,9 +149,9 @@ case $1 in
 		mkdir -p ./UCSC_hg38
 		cd ./UCSC_hg38
 		(echo Step 2 Downloading dbSNP_tbi; date) | sed 'N;s/\n/ /'
-		(wget -c -O common_all_20160527.vcf.gz.tbi ftp://ftp.ncbi.nih.gov/snp/organisms/human_9606_b147_GRCh38p2/VCF/GATK/common_all_20160527.vcf.gz.tbi)
+		(curl -L -o common_all_20160527.vcf.gz.tbi -C - ftp://ftp.ncbi.nih.gov/snp/organisms/human_9606_b147_GRCh38p2/VCF/GATK/common_all_20160527.vcf.gz.tbi)
 		(echo Step 3 Downloading dbSNP_vcf; date) | sed 'N;s/\n/ /'
-		(wget -c -O common_all_20160527.vcf.gz ftp://ftp.ncbi.nih.gov/snp/organisms/human_9606_b147_GRCh38p2/VCF/GATK/common_all_20160527.vcf.gz)
+		(curl -L -o common_all_20160527.vcf.gz -C - ftp://ftp.ncbi.nih.gov/snp/organisms/human_9606_b147_GRCh38p2/VCF/GATK/common_all_20160527.vcf.gz)
 		(checkfile common_all_20160527.vcf.gz) 
 		(checkfile common_all_20160527.vcf.gz.tbi)
 		cd ../..
@@ -156,9 +164,9 @@ case $1 in
 		mkdir -p ./UCSC_hg19
 		cd ./UCSC_hg19
 		(echo Step 2 Downloading dbSNP_tbi; date) | sed 'N;s/\n/ /'
-		(wget -c -O common_all_20160601.vcf.gz.tbi ftp://ftp.ncbi.nih.gov/snp/organisms/human_9606_b147_GRCh37p13/VCF/GATK/common_all_20160601.vcf.gz.tbi)
+		(curl -L -o common_all_20160601.vcf.gz.tbi -C - ftp://ftp.ncbi.nih.gov/snp/organisms/human_9606_b147_GRCh37p13/VCF/GATK/common_all_20160601.vcf.gz.tbi)
 		(echo Step 3 Downloading dbSNP_vcf; date) | sed 'N;s/\n/ /'
-		(wget -c -O common_all_20160601.vcf.gz ftp://ftp.ncbi.nih.gov/snp/organisms/human_9606_b147_GRCh37p13/VCF/GATK/common_all_20160601.vcf.gz)
+		(curl -L -o common_all_20160601.vcf.gz -C - ftp://ftp.ncbi.nih.gov/snp/organisms/human_9606_b147_GRCh37p13/VCF/GATK/common_all_20160601.vcf.gz)
 		(checkfile common_all_20160601.vcf.gz) 
 		(checkfile common_all_20160601.vcf.gz.tbi) 
 		cd ../..
