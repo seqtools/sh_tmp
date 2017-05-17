@@ -38,7 +38,7 @@ function checkmulfiles {
 }
 
 function downloadIGenomes {
-echo; (echo Step 3 Downloading the iGenomes file...; date) | sed 'N;s/\n/ /'; Sleep 1
+(echo Step 3 Downloading the iGenomes file...; date) | sed 'N;s/\n/ /'
 LINK="ftp://igenome:G3nom3s4u@ussd-ftp.illumina.com/Homo_sapiens/${1}/${2}/Homo_sapiens_${1}_${2}.tar.gz"
 curl -L --cookie /tmp/cookie.txt --cookie-jar /tmp/cookie.txt $LINK -o Homo_sapiens_${1}_${2}.tar.gz
 checkfile Homo_sapiens_${1}_${2}.tar.gz
@@ -52,7 +52,7 @@ checkfile $PWD/$dir/genome.fa.fai
 checkfile $PWD/$dir/genome.dict
 checkfile $PWD/$dir/GenomeSize.xml
 echo "genome reference files have been downloaded successfully."
-echo; (echo Step 4 Extracting the iGenomes file...; date) | sed 'N;s/\n/ /'; Sleep 1
+(echo Step 4 Extracting the iGenomes file...; date) | sed 'N;s/\n/ /'
 if [ ${2} == "GRCh37" ]; then
 	dir="Homo_sapiens/${1}/${2}/Annotation/Archives/archive-2015-07-17-14-31-42/Genes"
 fi
@@ -100,7 +100,7 @@ echo "Bowtie2 pre-built index files have been downloaded successfully."
 
 }
 
-echo; (echo Start; date) | sed 'N;s/\n/ /'; Sleep 1
+(echo Start; date) | sed 'N;s/\n/ /'
 echo $1
 echo $2
 echo $PWD
@@ -118,9 +118,9 @@ case $1 in
 		cd ./dbSNP_VCF
 		mkdir -p ./Ensembl_GRCh37
 		cd ./Ensembl_GRCh37
-		echo; (echo Step 1 Downloading the dbSNP_tbi file...; date) | sed 'N;s/\n/ /'; Sleep 1
+		(echo Step 1 Downloading the dbSNP_tbi file...; date) | sed 'N;s/\n/ /'
 		(curl -L -o common_all_20160601.vcf.gz.tbi -C - ftp://ftp.ncbi.nih.gov/snp/organisms/human_9606_b147_GRCh37p13/VCF/common_all_20160601.vcf.gz.tbi)
-		echo; (echo Step 2 Downloading the dbSNP_vcf file...; date) | sed 'N;s/\n/ /'; Sleep 1
+		(echo Step 2 Downloading the dbSNP_vcf file...; date) | sed 'N;s/\n/ /'
 		(curl -L -o common_all_20160601.vcf.gz -C - ftp://ftp.ncbi.nih.gov/snp/organisms/human_9606_b147_GRCh37p13/VCF/common_all_20160601.vcf.gz)
 		(checkfile common_all_20160601.vcf.gz) 
 		(checkfile common_all_20160601.vcf.gz.tbi) 
@@ -133,9 +133,9 @@ case $1 in
 		cd ./dbSNP_VCF
 		mkdir -p ./NCBI_GRCh38
 		cd ./NCBI_GRCh38
-		echo; (echo Step 1 Downloading the dbSNP_tbi file...; date) | sed 'N;s/\n/ /'; Sleep 1
+		(echo Step 1 Downloading the dbSNP_tbi file...; date) | sed 'N;s/\n/ /'
 		(curl -L -o common_all_20160527.vcf.gz.tbi -C - ftp://ftp.ncbi.nih.gov/snp/organisms/human_9606_b147_GRCh38p2/VCF/GATK/common_all_20160527.vcf.gz.tbi)
-		echo; (echo Step 2 Downloading the dbSNP_vcf file...; date) | sed 'N;s/\n/ /'; Sleep 1
+		(echo Step 2 Downloading the dbSNP_vcf file...; date) | sed 'N;s/\n/ /'
 		(curl -L -o common_all_20160527.vcf.gz -C - ftp://ftp.ncbi.nih.gov/snp/organisms/human_9606_b147_GRCh38p2/VCF/GATK/common_all_20160527.vcf.gz)
 		(checkfile common_all_20160527.vcf.gz) 
 		(checkfile common_all_20160527.vcf.gz.tbi) 
@@ -148,9 +148,9 @@ case $1 in
 		cd ./dbSNP_VCF
 		mkdir -p ./UCSC_hg38
 		cd ./UCSC_hg38
-		echo; (echo Step 1 Downloading the dbSNP_tbi file...; date) | sed 'N;s/\n/ /'; Sleep 1
+		(echo Step 1 Downloading the dbSNP_tbi file...; date) | sed 'N;s/\n/ /'
 		(curl -L -o common_all_20160527.vcf.gz.tbi -C - ftp://ftp.ncbi.nih.gov/snp/organisms/human_9606_b147_GRCh38p2/VCF/GATK/common_all_20160527.vcf.gz.tbi)
-		echo; (echo Step 2 Downloading the dbSNP_vcf file...; date) | sed 'N;s/\n/ /'; Sleep 1
+		(echo Step 2 Downloading the dbSNP_vcf file...; date) | sed 'N;s/\n/ /'
 		(curl -L -o common_all_20160527.vcf.gz -C - ftp://ftp.ncbi.nih.gov/snp/organisms/human_9606_b147_GRCh38p2/VCF/GATK/common_all_20160527.vcf.gz)
 		(checkfile common_all_20160527.vcf.gz) 
 		(checkfile common_all_20160527.vcf.gz.tbi)
@@ -163,9 +163,9 @@ case $1 in
 		cd ./dbSNP_VCF
 		mkdir -p ./UCSC_hg19
 		cd ./UCSC_hg19
-		echo; (echo Step 1 Downloading the dbSNP_tbi file...; date) | sed 'N;s/\n/ /'; Sleep 1
+		(echo Step 1 Downloading the dbSNP_tbi file...; date) | sed 'N;s/\n/ /'
 		(curl -L -o common_all_20160601.vcf.gz.tbi -C - ftp://ftp.ncbi.nih.gov/snp/organisms/human_9606_b147_GRCh37p13/VCF/GATK/common_all_20160601.vcf.gz.tbi)
-		echo; (echo Step 2 Downloading the dbSNP_vcf file...; date) | sed 'N;s/\n/ /'; Sleep 1
+		(echo Step 2 Downloading the dbSNP_vcf file...; date) | sed 'N;s/\n/ /'
 		(curl -L -o common_all_20160601.vcf.gz -C - ftp://ftp.ncbi.nih.gov/snp/organisms/human_9606_b147_GRCh37p13/VCF/GATK/common_all_20160601.vcf.gz)
 		(checkfile common_all_20160601.vcf.gz) 
 		(checkfile common_all_20160601.vcf.gz.tbi) 
@@ -174,4 +174,4 @@ case $1 in
 		rm ${2}/RefGenProfiles/Homo_sapiens_UCSC_hg19.tar.gz
 		;;
 esac
-echo; (echo Step 5 Downloading finished.; date) | sed 'N;s/\n/ /'; Sleep 1
+(echo Step 5 Downloading finished.; date) | sed 'N;s/\n/ /'
