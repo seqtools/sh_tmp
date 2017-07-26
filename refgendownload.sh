@@ -111,11 +111,11 @@ case $1 in
 		mkdir -p ./Ensembl_GRCh37
 		cd ./Ensembl_GRCh37
 		(echo Step 1 Downloading the dbSNP_tbi file...; date) | sed 'N;s/\n/ /'
-		(wget -c -O common_all_20160601.vcf.gz.tbi ftp://ftp.ncbi.nih.gov/snp/organisms/human_9606_b147_GRCh37p13/VCF/common_all_20160601.vcf.gz.tbi)
+		(wget -c -O common_all_20170710.vcf.gz.tbi ftp://ftp.ncbi.nih.gov/snp/organisms/human_9606_b150_GRCh37p13/VCF/GATK/common_all_20170710.vcf.gz.tbi)
 		(echo Step 2 Downloading the dbSNP_vcf file...; date) | sed 'N;s/\n/ /'
-		(wget -c -O common_all_20160601.vcf.gz ftp://ftp.ncbi.nih.gov/snp/organisms/human_9606_b147_GRCh37p13/VCF/common_all_20160601.vcf.gz)
-		(checkfile common_all_20160601.vcf.gz) 
-		(checkfile common_all_20160601.vcf.gz.tbi) 
+		(wget -c -O common_all_20170710.vcf.gz ftp://ftp.ncbi.nih.gov/snp/organisms/human_9606_b150_GRCh37p13/VCF/GATK/common_all_20170710.vcf.gz)
+		(checkfile common_all_20170710.vcf.gz) 
+		(checkfile common_all_20170710.vcf.gz.tbi) 
 		cd ../..
 		(downloadIGenomes Ensembl GRCh37)
 		rm ${2}/RefGenProfiles/Homo_sapiens_Ensembl_GRCh37.tar.gz
@@ -126,11 +126,11 @@ case $1 in
 		mkdir -p ./NCBI_GRCh38
 		cd ./NCBI_GRCh38
 		(echo Step 1 Downloading the dbSNP_tbi file...; date) | sed 'N;s/\n/ /'
-		(wget -c -O common_all_20160527.vcf.gz.tbi ftp://ftp.ncbi.nih.gov/snp/organisms/human_9606_b147_GRCh38p2/VCF/GATK/common_all_20160527.vcf.gz.tbi)
+		(wget -c -O common_all_20170710.vcf.gz.tbi ftp://ftp.ncbi.nih.gov/snp/organisms/human_9606_b150_GRCh38p7/VCF/GATK/common_all_20170710.vcf.gz.tbi)
 		(echo Step 2 Downloading the dbSNP_vcf file...; date) | sed 'N;s/\n/ /'
-		(wget -c -O common_all_20160527.vcf.gz ftp://ftp.ncbi.nih.gov/snp/organisms/human_9606_b147_GRCh38p2/VCF/GATK/common_all_20160527.vcf.gz)
-		(checkfile common_all_20160527.vcf.gz) 
-		(checkfile common_all_20160527.vcf.gz.tbi) 
+		(wget -c -O common_all_20170710.vcf.gz ftp://ftp.ncbi.nih.gov/snp/organisms/human_9606_b150_GRCh38p7/VCF/GATK/common_all_20170710.vcf.gz)
+		(checkfile common_all_20170710.vcf.gz) 
+		(checkfile common_all_20170710.vcf.gz.tbi) 
 		cd ../..
 		(downloadIGenomes NCBI GRCh38)
 		rm ${2}/RefGenProfiles/Homo_sapiens_NCBI_GRCh38.tar.gz
@@ -141,11 +141,11 @@ case $1 in
 		mkdir -p ./UCSC_hg38
 		cd ./UCSC_hg38
 		(echo Step 1 Downloading the dbSNP_tbi file...; date) | sed 'N;s/\n/ /'
-		(wget -c -O common_all_20160527.vcf.gz.tbi ftp://ftp.ncbi.nih.gov/snp/organisms/human_9606_b147_GRCh38p2/VCF/GATK/common_all_20160527.vcf.gz.tbi)
+		(wget -c -O common_all_20170710.vcf.gz.tbi ftp://ftp.ncbi.nih.gov/snp/organisms/human_9606_b150_GRCh38p7/VCF/GATK/common_all_20170710.vcf.gz.tbi)
 		(echo Step 2 Downloading the dbSNP_vcf file...; date) | sed 'N;s/\n/ /'
-		(wget -c -O common_all_20160527.vcf.gz ftp://ftp.ncbi.nih.gov/snp/organisms/human_9606_b147_GRCh38p2/VCF/GATK/common_all_20160527.vcf.gz)
-		(checkfile common_all_20160527.vcf.gz) 
-		(checkfile common_all_20160527.vcf.gz.tbi)
+		(wget -c -O common_all_20170710.vcf.gz ftp://ftp.ncbi.nih.gov/snp/organisms/human_9606_b150_GRCh38p7/VCF/GATK/common_all_20170710.vcf.gz)
+		(checkfile common_all_20170710.vcf.gz) 
+		(checkfile common_all_20170710.vcf.gz.tbi)
 		cd ../..
 		(downloadIGenomes UCSC hg38)
 		rm ${2}/RefGenProfiles/Homo_sapiens_UCSC_hg38.tar.gz
@@ -156,11 +156,11 @@ case $1 in
 		mkdir -p ./UCSC_hg19
 		cd ./UCSC_hg19
 		(echo Step 1 Downloading the dbSNP_tbi file...; date) | sed 'N;s/\n/ /'
-		(wget -c -O common_all_20160601.vcf.gz.tbi ftp://ftp.ncbi.nih.gov/snp/organisms/human_9606_b147_GRCh37p13/VCF/GATK/common_all_20160601.vcf.gz.tbi)
+		(wget -c -O common_all_20170710.vcf.gz.tbi ftp://ftp.ncbi.nih.gov/snp/organisms/human_9606_b150_GRCh37p13/VCF/GATK/common_all_20170710.vcf.gz.tbi)
 		(echo Step 2 Downloading the dbSNP_vcf file...; date) | sed 'N;s/\n/ /'
-		(wget -c -O common_all_20160601.vcf.gz ftp://ftp.ncbi.nih.gov/snp/organisms/human_9606_b147_GRCh37p13/VCF/GATK/common_all_20160601.vcf.gz)
-		(checkfile common_all_20160601.vcf.gz) 
-		(checkfile common_all_20160601.vcf.gz.tbi) 
+		(wget -c -O common_all_20170710.vcf.gz ftp://ftp.ncbi.nih.gov/snp/organisms/human_9606_b150_GRCh37p13/VCF/GATK/common_all_20170710.vcf.gz)
+		(checkfile common_all_20170710.vcf.gz) 
+		(checkfile common_all_20170710.vcf.gz.tbi) 
 		cd ../..
 		(downloadIGenomes UCSC hg19)
 		rm ${2}/RefGenProfiles/Homo_sapiens_UCSC_hg19.tar.gz
