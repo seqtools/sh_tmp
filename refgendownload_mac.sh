@@ -3,7 +3,7 @@
 # Installation script for automatically setting up reference genome files.
 #
 # This script has two arguments. The first one is genomebuild and the second one is the full path of a folder to which user want to save the downloade files. 
-#
+# 5/8/2021 Change igenome links.
 
 set -e
 
@@ -39,7 +39,7 @@ function checkmulfiles {
 
 function downloadIGenomes {
 (echo Step 3 Downloading the iGenomes file...; date) | sed 'N;s/\n/ /'
-LINK="ftp://igenome:G3nom3s4u@ussd-ftp.illumina.com/Homo_sapiens/${1}/${2}/Homo_sapiens_${1}_${2}.tar.gz"
+LINK="http://igenomes.illumina.com.s3-website-us-east-1.amazonaws.com/Homo_sapiens/${1}/${2}/Homo_sapiens_${1}_${2}.tar.gz"
 curl -L --cookie /tmp/cookie.txt --cookie-jar /tmp/cookie.txt $LINK -o Homo_sapiens_${1}_${2}.tar.gz
 checkfile Homo_sapiens_${1}_${2}.tar.gz
 
@@ -119,9 +119,9 @@ case $1 in
 		mkdir -p ./Ensembl_GRCh37
 		cd ./Ensembl_GRCh37
 		(echo Step 1 Downloading the dbSNP_tbi file...; date) | sed 'N;s/\n/ /'
-		(curl -L -o common_all_20170710.vcf.gz.tbi -C - ftp://ftp.ncbi.nih.gov/snp/organisms/human_9606_b150_GRCh37p13/VCF/GATK/common_all_20170710.vcf.gz.tbi)
+		(curl -L -o common_all_20170710.vcf.gz.tbi -C - https://ftp.ncbi.nih.gov/snp/organisms/human_9606_b150_GRCh37p13/VCF/GATK/common_all_20170710.vcf.gz.tbi)
 		(echo Step 2 Downloading the dbSNP_vcf file...; date) | sed 'N;s/\n/ /'
-		(curl -L -o common_all_20170710.vcf.gz -C - ftp://ftp.ncbi.nih.gov/snp/organisms/human_9606_b150_GRCh37p13/VCF/GATK/common_all_20170710.vcf.gz)
+		(curl -L -o common_all_20170710.vcf.gz -C - https://ftp.ncbi.nih.gov/snp/organisms/human_9606_b150_GRCh37p13/VCF/GATK/common_all_20170710.vcf.gz)
 		(checkfile common_all_20170710.vcf.gz) 
 		(checkfile common_all_20170710.vcf.gz.tbi) 
 		cd ../..
@@ -134,9 +134,9 @@ case $1 in
 		mkdir -p ./NCBI_GRCh38
 		cd ./NCBI_GRCh38
 		(echo Step 1 Downloading the dbSNP_tbi file...; date) | sed 'N;s/\n/ /'
-		(curl -L -o common_all_20170710.vcf.gz.tbi -C - ftp://ftp.ncbi.nih.gov/snp/organisms/human_9606_b150_GRCh38p7/VCF/GATK/common_all_20170710.vcf.gz.tbi)
+		(curl -L -o common_all_20170710.vcf.gz.tbi -C - https://ftp.ncbi.nih.gov/snp/organisms/human_9606_b150_GRCh38p7/VCF/GATK/common_all_20170710.vcf.gz.tbi)
 		(echo Step 2 Downloading the dbSNP_vcf file...; date) | sed 'N;s/\n/ /'
-		(curl -L -o common_all_20170710.vcf.gz -C - ftp://ftp.ncbi.nih.gov/snp/organisms/human_9606_b150_GRCh38p7/VCF/GATK/common_all_20170710.vcf.gz)
+		(curl -L -o common_all_20170710.vcf.gz -C - https://ftp.ncbi.nih.gov/snp/organisms/human_9606_b150_GRCh38p7/VCF/GATK/common_all_20170710.vcf.gz)
 		(checkfile common_all_20170710.vcf.gz) 
 		(checkfile common_all_20170710.vcf.gz.tbi) 
 		cd ../..
@@ -149,9 +149,9 @@ case $1 in
 		mkdir -p ./UCSC_hg38
 		cd ./UCSC_hg38
 		(echo Step 1 Downloading the dbSNP_tbi file...; date) | sed 'N;s/\n/ /'
-		(curl -L -o common_all_20170710.vcf.gz.tbi -C - ftp://ftp.ncbi.nih.gov/snp/organisms/human_9606_b150_GRCh38p7/VCF/GATK/common_all_20170710.vcf.gz.tbi)
+		(curl -L -o common_all_20170710.vcf.gz.tbi -C - https://ftp.ncbi.nih.gov/snp/organisms/human_9606_b150_GRCh38p7/VCF/GATK/common_all_20170710.vcf.gz.tbi)
 		(echo Step 2 Downloading the dbSNP_vcf file...; date) | sed 'N;s/\n/ /'
-		(curl -L -o common_all_20170710.vcf.gz -C - ftp://ftp.ncbi.nih.gov/snp/organisms/human_9606_b150_GRCh38p7/VCF/GATK/common_all_20170710.vcf.gz)
+		(curl -L -o common_all_20170710.vcf.gz -C - https://ftp.ncbi.nih.gov/snp/organisms/human_9606_b150_GRCh38p7/VCF/GATK/common_all_20170710.vcf.gz)
 		(checkfile common_all_20170710.vcf.gz) 
 		(checkfile common_all_20170710.vcf.gz.tbi)
 		cd ../..
@@ -164,9 +164,9 @@ case $1 in
 		mkdir -p ./UCSC_hg19
 		cd ./UCSC_hg19
 		(echo Step 1 Downloading the dbSNP_tbi file...; date) | sed 'N;s/\n/ /'
-		(curl -L -o common_all_20170710.vcf.gz.tbi -C - ftp://ftp.ncbi.nih.gov/snp/organisms/human_9606_b150_GRCh37p13/VCF/GATK/common_all_20170710.vcf.gz.tbi)
+		(curl -L -o common_all_20170710.vcf.gz.tbi -C - https://ftp.ncbi.nih.gov/snp/organisms/human_9606_b150_GRCh37p13/VCF/GATK/common_all_20170710.vcf.gz.tbi)
 		(echo Step 2 Downloading the dbSNP_vcf file...; date) | sed 'N;s/\n/ /'
-		(curl -L -o common_all_20170710.vcf.gz -C - ftp://ftp.ncbi.nih.gov/snp/organisms/human_9606_b150_GRCh37p13/VCF/GATK/common_all_20170710.vcf.gz)
+		(curl -L -o common_all_20170710.vcf.gz -C - https://ftp.ncbi.nih.gov/snp/organisms/human_9606_b150_GRCh37p13/VCF/GATK/common_all_20170710.vcf.gz)
 		(checkfile common_all_20170710.vcf.gz) 
 		(checkfile common_all_20170710.vcf.gz.tbi) 
 		cd ../..
